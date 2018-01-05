@@ -13,4 +13,6 @@ def iter_history_lines(is_reversed=False):
 
 
 def get_history_path():
-    return os.path.join(os.environ['HOME'], '.bash_history')
+    if 'HISTFILE' not in os.environ:
+        return os.path.join(os.environ['HOME'], '.bash_history')
+    return os.environ['HISTFILE']
