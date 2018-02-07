@@ -3,7 +3,7 @@ import os
 from collections import OrderedDict
 
 import six
-from six.moves.configparser import ConfigParser, NoSectionError
+from six.moves.configparser import ConfigParser, NoOptionError, NoSectionError
 
 
 CONFIG_DEFAULTS = {
@@ -48,5 +48,5 @@ def _get_config_value(config_parser, section_name, param_name, default_value):
             return config_parser.getint(section_name, param_name)
         else:
             return config_parser.get(section_name, param_name)
-    except (ValueError, NoSectionError):
+    except (ValueError, NoOptionError, NoSectionError):
         return default_value

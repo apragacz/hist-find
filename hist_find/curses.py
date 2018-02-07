@@ -27,7 +27,10 @@ def paint_window(stdscr, model):
 
         assert i < lines_capacity
         line_padded = pad_with_spaces(' ' + line, width)
-        stdscr.addnstr(y, 0, line_padded, width, curses.color_pair(color_num))
+        color_pair = curses.color_pair(color_num)
+        if '\0' in line_padded:
+            line_padded = line_padded.replace('\0', '?')
+        stdscr.addnstr(y, 0, line_padded, width, color_pair)
     prompt = '$ '
     prompt_and_search = prompt + model.search_string
     stdscr.addnstr(height - 1, 0, prompt_and_search, width)
